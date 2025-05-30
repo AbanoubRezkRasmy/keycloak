@@ -27,6 +27,7 @@ ingress:
         - path: /
           pathType: prefix
   tls: []
+
 postgresql:
   enabled: true
   auth:
@@ -63,3 +64,18 @@ readinessProbe:
 
 metrics:
   enabled: false
+
+serviceAccount:
+  create: false
+  name: ""
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+image:
+  repository: quay.io/keycloak/keycloak
+  tag: "22.0.1"
+  pullPolicy: IfNotPresent
