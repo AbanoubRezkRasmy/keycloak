@@ -22,10 +22,10 @@ ingress:
     alb.ingress.kubernetes.io/subnets: "subnet-09369a52f175cfc67,subnet-03b7d9a6422c0a350,subnet-0abd28689a34bcbb9"
     alb.ingress.kubernetes.io/target-type: "ip"
   hosts:
-    - host: Keyclock.datavisyn.pro
+    - host: keyclock.datavisyn.pro
       paths:
         - path: /
-          pathType: prefix
+          pathType: Prefix
   tls: []
 
 postgresql:
@@ -36,7 +36,7 @@ postgresql:
     persistence:
       enabled: false
       storageClass: gp2
-      size: 1Gi
+      size: 8Gi
 
 resources:
   requests:
@@ -59,8 +59,19 @@ containerSecurityContext:
 
 livenessProbe:
   enabled: true
+  httpGet:
+    path: /
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
 readinessProbe:
   enabled: true
+  httpGet:
+    path: /
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
 
 metrics:
   enabled: false
