@@ -5,7 +5,7 @@ auth:
 proxy: edge
 
 service:
-  type: nodePort
+  type: NodePort
   port: 80
 
 ingress:
