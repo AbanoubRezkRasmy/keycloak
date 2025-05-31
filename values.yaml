@@ -49,11 +49,11 @@ image:
   tag: "24.0.4"
   pullPolicy: IfNotPresent
 
-command:
-  - "/opt/keycloak/bin/kc.sh"
+#command:
+#  - "/opt/keycloak/bin/kc.sh"
 
-args:
-  - "start"
+#args:
+#  - "start"
 
 extraEnvVars:
   - name: KC_DB
