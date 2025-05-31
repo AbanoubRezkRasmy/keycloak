@@ -86,6 +86,9 @@ autoscaling:
   maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 
+postgresql:
+  enabled: true  
+
 command:
   - "/opt/keycloak/bin/kc.sh"
 args:
