@@ -87,7 +87,7 @@ readinessProbe:
   httpGet:
     path: /realms/master
     port: 8080
-  initialDelaySeconds: 30
+  initialDelaySeconds: 70
   periodSeconds: 10
   failureThreshold: 6
   timeoutSeconds: 5
