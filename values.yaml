@@ -84,9 +84,12 @@ podSecurityContext:
 
   
 readinessProbe:
-  enabled: true
+  httpGet:
+    path: /realms/master
+    port: 8080
   initialDelaySeconds: 30
   periodSeconds: 10
-  timeoutSeconds: 1
+  failureThreshold: 6
+  timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
