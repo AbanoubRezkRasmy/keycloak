@@ -30,7 +30,7 @@ ingress:
     alb.ingress.kubernetes.io/subnets: "subnet-09369a52f175cfc67,subnet-03b7d9a6422c0a350,subnet-0abd28689a34bcbb9"
     alb.ingress.kubernetes.io/target-type: "ip"
   hosts:
-    - host: keyclock.datavisyn.pro
+    - host: keycloak.datavisyn.pro
       paths:
         - path: /
           pathType: Prefix
@@ -51,8 +51,9 @@ image:
 
 command:
   - "/opt/keycloak/bin/kc.sh"
+
 args:
-  - "start-dev"
+  - "start"
 
 extraEnvVars:
   - name: KC_DB
