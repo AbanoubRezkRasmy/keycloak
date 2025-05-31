@@ -86,8 +86,10 @@ autoscaling:
   maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 
-command: ["/opt/keycloak/bin/kc.sh"]
-args: ["start-dev"]
+command:
+  - "/opt/keycloak/bin/kc.sh"
+args:
+  - "start-dev"
 
 image:
   repository: quay.io/keycloak/keycloak
