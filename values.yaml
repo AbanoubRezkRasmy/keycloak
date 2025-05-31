@@ -2,15 +2,13 @@ auth:
   adminUser: admin
   adminPassword: admin123
 
-proxy: edge
-
 service:
-  type: NodePort
+  type: LoadBalancer
   port: 80
 
 ingress:
   enabled: true
-  annotations: 
+  annotations:
     alb.ingress.kubernetes.io/actions.ssl-redirect.type: "redirect"
     alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:eu-west-1:297071026656:certificate/b368021d-cc49-44b0-b471-c4f63b1d6d29"
     alb.ingress.kubernetes.io/group.name: "datavisyn-test-eks"
@@ -35,8 +33,26 @@ postgresql:
   primary:
     persistence:
       enabled: false
-      storageClass: gp2
-      size: 8Gi
+
+image:
+  repository: quay.io/keycloak/keycloak
+  tag: "22.0.1"
+  pullPolicy: IfNotPresent
+
+command:
+  - "/opt/keycloak/bin/kc.sh"
+args:
+  - "start-dev"
+
+extraEnvVars:
+  - name: KC_DB
+    value: postgres
+  - name: KC_DB_URL
+    value: jdbc:postgresql://keycloak-postgresql.keycloak.svc.cluster.local:5432/bitnami_keycloak
+  - name: KC_DB_USERNAME
+    value: bn_keycloak
+  - name: KC_DB_PASSWORD
+    value: keycloakpass
 
 resources:
   requests:
@@ -47,15 +63,6 @@ resources:
     cpu: 500m
 
 replicaCount: 1
-
-securityContext:
-  enabled: true
-  fsGroup: 1001
-  runAsUser: 1001
-
-containerSecurityContext:
-  enabled: true
-  runAsUser: 1001
 
 livenessProbe:
   enabled: true
@@ -72,29 +79,3 @@ readinessProbe:
     port: 8080
   initialDelaySeconds: 5
   periodSeconds: 10
-
-metrics:
-  enabled: false
-
-serviceAccount:
-  create: false
-  name: ""
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80
-
-postgresql:
-  enabled: true  
-
-command:
-  - "/opt/keycloak/bin/kc.sh"
-args:
-  - "start-dev"
-
-image:
-  repository: quay.io/keycloak/keycloak
-  tag: "22.0.1"
-  pullPolicy: IfNotPresent
