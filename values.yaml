@@ -1,21 +1,27 @@
+# Keycloak admin credentials
 auth:
   adminUser: admin
   adminPassword: admin123
 
+# Service configuration
 service:
   type: NodePort
-  port: 80
+  ports:
+    http: 80
 
+# Service Account configuration
 serviceAccount:
   create: false
   name: ""
 
+# Autoscaling settings
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 
+# Ingress configuration for ALB
 ingress:
   enabled: true
   annotations:
@@ -29,13 +35,12 @@ ingress:
     alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/subnets: "subnet-09369a52f175cfc67,subnet-03b7d9a6422c0a350,subnet-0abd28689a34bcbb9"
     alb.ingress.kubernetes.io/target-type: "ip"
-  hosts:
-    - host: keycloak.datavisyn.pro
-      paths:
-        - path: /
-          pathType: Prefix
+  hostname: keycloak.datavisyn.pro
+  path: /
+  pathType: Prefix
   tls: []
 
+# PostgreSQL embedded database configuration
 postgresql:
   enabled: true
   auth:
@@ -44,17 +49,14 @@ postgresql:
     persistence:
       enabled: false
 
+# Keycloak container image
 image:
-  repository: quay.io/keycloak/keycloak
+  registry: quay.io
+  repository: keycloak/keycloak
   tag: "24.0.4"
   pullPolicy: IfNotPresent
 
-#command:
-#  - "/opt/keycloak/bin/kc.sh"
-
-#args:
-#  - "start"
-
+# Additional environment variables
 extraEnvVars:
   - name: KC_DB
     value: postgres
@@ -69,6 +71,7 @@ extraEnvVars:
   - name: KEYCLOAK_ADMIN_PASSWORD
     value: admin123
 
+# Resource requests and limits
 resources:
   requests:
     memory: 512Mi
@@ -77,8 +80,10 @@ resources:
     memory: 1Gi
     cpu: 500m
 
+# Number of replicas
 replicaCount: 1
 
+# Liveness probe configuration
 livenessProbe:
   enabled: true
   httpGet:
@@ -87,6 +92,7 @@ livenessProbe:
   initialDelaySeconds: 5
   periodSeconds: 10
 
+# Readiness probe configuration
 readinessProbe:
   enabled: true
   httpGet:
