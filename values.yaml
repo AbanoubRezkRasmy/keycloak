@@ -45,8 +45,8 @@ postgresql:
       enabled: false
 
 image:
-  registry: quay.io
-  repository: keycloak/keycloak
+  registry: docker.io
+  repository: bitnami/keycloak
   tag: "24.0.4"
   pullPolicy: IfNotPresent
 
