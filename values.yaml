@@ -82,10 +82,11 @@ podSecurityContext:
   enabled: true
   fsGroup: 1001
 
+  
 readinessProbe:
   enabled: true
-  httpGet:
-    path: /health/ready
-    port: 8080
-  initialDelaySeconds: 10
+  initialDelaySeconds: 30
   periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 3
+  successThreshold: 1
