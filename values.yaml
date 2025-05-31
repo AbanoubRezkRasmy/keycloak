@@ -52,6 +52,14 @@ image:
   tag: "24.0.4"
   pullPolicy: IfNotPresent
 
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: /health/ready
+    port: 8080
+  
+
 extraEnvVars:
   - name: KC_DB
     value: postgres
