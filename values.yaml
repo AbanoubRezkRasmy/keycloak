@@ -63,6 +63,14 @@ extraEnvVars:
     value: admin
   - name: KEYCLOAK_ADMIN_PASSWORD
     value: admin123
+  - name: KC_PROXY
+    value: edge
+  - name: KC_HOSTNAME
+    value: keycloak.datavisyn.pro
+  - name: KC_HOSTNAME_STRICT
+    value: "true"
+  - name: KC_HOSTNAME_URL
+    value: "https://keycloak.datavisyn.pro"
 
 resources:
   requests:
@@ -82,14 +90,12 @@ podSecurityContext:
   enabled: true
   fsGroup: 1001
 
-  
 readinessProbe:
   httpGet:
     path: /realms/master
     port: 8080
   initialDelaySeconds: 70
   periodSeconds: 10
-  failureThreshold: 6
   timeoutSeconds: 5
-  failureThreshold: 3
   successThreshold: 1
+  failureThreshold: 6
