@@ -3,7 +3,7 @@ auth:
   adminPassword: admin123
 
 service:
-  type: LoadBalancer
+  type: NodePort
   port: 80
 
 serviceAccount:
