@@ -40,8 +40,6 @@ postgresql:
   enabled: true
   auth:
     postgresPassword: mysecretpassword
-    username: bn_keycloak
-    password: keycloakpass
   primary:
     persistence:
       enabled: false
@@ -51,14 +49,6 @@ image:
   repository: bitnami/keycloak
   tag: "24.0.4"
   pullPolicy: IfNotPresent
-
-
-readinessProbe:
-  enabled: true
-  httpGet:
-    path: /health/ready
-    port: 8080
-  
 
 extraEnvVars:
   - name: KC_DB
@@ -91,3 +81,21 @@ primary:
 podSecurityContext:
   enabled: true
   fsGroup: 1001
+
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: /
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: /
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
