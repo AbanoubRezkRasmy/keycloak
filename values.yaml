@@ -6,6 +6,11 @@ service:
   type: LoadBalancer
   port: 80
 
+serviceAccount:
+  create: false
+  name: ""
+  
+
 ingress:
   enabled: true
   annotations:
