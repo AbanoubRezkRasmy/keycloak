@@ -60,7 +60,7 @@ containerSecurityContext:
 livenessProbe:
   enabled: true
   httpGet:
-    path: /
+    path: /health/ready
     port: 8080
   initialDelaySeconds: 5
   periodSeconds: 10
@@ -68,7 +68,7 @@ livenessProbe:
 readinessProbe:
   enabled: true
   httpGet:
-    path: /
+    path: /health/ready
     port: 8080
   initialDelaySeconds: 5
   periodSeconds: 10
@@ -85,6 +85,9 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 3
   targetCPUUtilizationPercentage: 80
+
+command: ["/opt/keycloak/bin/kc.sh"]
+args: ["start-dev"]
 
 image:
   repository: quay.io/keycloak/keycloak
