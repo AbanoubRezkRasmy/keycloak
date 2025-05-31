@@ -51,6 +51,10 @@ image:
   pullPolicy: IfNotPresent
 
 extraEnvVars:
+  - name: KC_HOSTNAME
+    value: keycloak.datavisyn.pro
+  - name: KC_PROXY
+    value: edge
   - name: KC_DB
     value: postgres
   - name: KC_DB_URL
@@ -63,14 +67,7 @@ extraEnvVars:
     value: admin
   - name: KEYCLOAK_ADMIN_PASSWORD
     value: admin123
-  - name: KC_PROXY
-    value: edge
-  - name: KC_HOSTNAME
-    value: keycloak.datavisyn.pro
-  - name: KC_HOSTNAME_STRICT
-    value: "true"
-  - name: KC_HOSTNAME_URL
-    value: "https://keycloak.datavisyn.pro"
+
 
 resources:
   requests:
