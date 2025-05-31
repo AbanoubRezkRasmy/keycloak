@@ -39,7 +39,9 @@ ingress:
 postgresql:
   enabled: true
   auth:
-    postgresPassword: mysecretpassword
+    postgresPassword: keycloakpass
+    username: bn_keycloak
+    password: keycloakpass
   primary:
     persistence:
       enabled: false
