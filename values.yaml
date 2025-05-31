@@ -84,20 +84,4 @@ resources:
 # Number of replicas
 replicaCount: 1
 
-# Liveness probe configuration
-livenessProbe:
-  enabled: true
-  httpGet:
-    path: /health/ready
-    port: 8080
-  initialDelaySeconds: 5
-  periodSeconds: 10
 
-# Readiness probe configuration
-readinessProbe:
-  enabled: true
-  httpGet:
-    path: /health/ready
-    port: 8080
-  initialDelaySeconds: 5
-  periodSeconds: 10
