@@ -1,27 +1,22 @@
-# Keycloak admin credentials
 auth:
   adminUser: admin
   adminPassword: admin123
 
-# Service configuration
 service:
   type: NodePort
   ports:
     http: 80
 
-# Service Account configuration
 serviceAccount:
   create: false
   name: ""
 
-# Autoscaling settings
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 3
   targetCPUUtilizationPercentage: 80
 
-# Ingress configuration for ALB
 ingress:
   enabled: true
   ingressClassName: alb
@@ -41,7 +36,6 @@ ingress:
   pathType: Prefix
   tls: []
 
-# PostgreSQL embedded database configuration
 postgresql:
   enabled: true
   auth:
@@ -50,14 +44,12 @@ postgresql:
     persistence:
       enabled: false
 
-# Keycloak container image
 image:
   registry: quay.io
   repository: keycloak/keycloak
   tag: "24.0.4"
   pullPolicy: IfNotPresent
 
-# Additional environment variables
 extraEnvVars:
   - name: KC_DB
     value: postgres
@@ -72,7 +64,6 @@ extraEnvVars:
   - name: KEYCLOAK_ADMIN_PASSWORD
     value: admin123
 
-# Resource requests and limits
 resources:
   requests:
     memory: 512Mi
@@ -81,14 +72,12 @@ resources:
     memory: 1Gi
     cpu: 500m
 
-
+replicaCount: 1
 
 primary:
   persistence:
     enabled: false
-    
 
-# Number of replicas
-replicaCount: 1
-
-
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
